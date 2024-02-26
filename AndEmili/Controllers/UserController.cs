@@ -19,10 +19,36 @@ namespace AndEmili.Controllers
             _andEmiliContext = andEmiliContext;
         }
 
-        [HttpGet(Name = "GetByEmail")]
+        [Route("GetByEmail")]
+        [HttpGet]
         public async Task<User?> GetByEmail(string email)
         {
             return await _andEmiliContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        [Route("CreateUser")]
+        [HttpPost]
+        public async Task<User?> CreateUser(string email)
+        {
+            User newUser = new User() { Email = email };
+            var addedUser = await _andEmiliContext.Users.AddAsync(newUser);
+            await _andEmiliContext.SaveChangesAsync();
+            newUser.Id = addedUser.Entity.Id;
+            return newUser;
+        }
+
+        [Route("GetOrCreateUser")]
+        [HttpPost]
+        public async Task<User?> GetOrCreateUser(string email)
+        {
+           User? user = await _andEmiliContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+            if (user == null)
+            {
+                user = await this.CreateUser(email);
+            }
+
+            return user;
         }
 
 
