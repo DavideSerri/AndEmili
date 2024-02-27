@@ -13,11 +13,11 @@ namespace AndEmili.Controllers
     [Route("[controller]")]
     public class CardController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<CardController> _logger;
         private AndEmiliContext _andEmiliContext;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public CardController(ILogger<UserController> logger, AndEmiliContext andEmiliContext, IHttpClientFactory httpClientFactory)
+        public CardController(ILogger<CardController> logger, AndEmiliContext andEmiliContext, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _andEmiliContext = andEmiliContext;
@@ -40,32 +40,6 @@ namespace AndEmili.Controllers
 
             return cards;
         }
-
-        [Route("CreateUser")]
-        [HttpPost]
-        public async Task<User?> CreateUser(string email)
-        {
-            User newUser = new User() { Email = email };
-            var addedUser = await _andEmiliContext.Users.AddAsync(newUser);
-            await _andEmiliContext.SaveChangesAsync();
-            newUser.Id = addedUser.Entity.Id;
-            return newUser;
-        }
-
-        [Route("GetOrCreateUser")]
-        [HttpPost]
-        public async Task<User?> GetOrCreateUser(string email)
-        {
-            User? user = await _andEmiliContext.Users.FirstOrDefaultAsync(x => x.Email == email);
-
-            if (user == null)
-            {
-                user = await this.CreateUser(email);
-            }
-
-            return user;
-        }
-
 
         private async Task<List<ScryfallCardDtoResponse>> getPage(int page)
         {

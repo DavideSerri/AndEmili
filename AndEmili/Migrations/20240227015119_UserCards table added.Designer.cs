@@ -2,6 +2,7 @@
 using AndEmili.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AndEmili.Migrations
 {
     [DbContext(typeof(AndEmiliContext))]
-    partial class AndEmiliContextModelSnapshot : ModelSnapshot
+    [Migration("20240227015119_UserCards table added")]
+    partial class UserCardstableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
