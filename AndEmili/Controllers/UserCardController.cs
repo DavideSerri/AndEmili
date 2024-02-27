@@ -1,5 +1,7 @@
 ﻿using AndEmili.Data;
+using AndEmili.Migrations;
 using AndEmili.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,6 +46,20 @@ namespace AndEmili.Controllers
             IEnumerable<UserCard> userCards = await _andEmiliContext.UserCards.Where(x => x.UserId == userId).ToListAsync();
             return userCards;
 
+        }
+
+        [Route("Delete")]
+        [HttpDelete]
+        public async Task<UserCard> DeleteEntry(int userCardId)
+        {
+            UserCard? userCard = await _andEmiliContext.UserCards.FirstOrDefaultAsync(x => x.Id == userCardId);
+            if (userCard != null)
+            {
+                _andEmiliContext.UserCards.Remove(userCard);
+                await _andEmiliContext.SaveChangesAsync();
+                return userCard;
+            }
+            return null;
         }
     }
 }

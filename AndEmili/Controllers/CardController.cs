@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using System.Text.Json;
 using System.Linq;
+using Microsoft.AspNetCore.Cors;
 
 namespace AndEmili.Controllers
 {

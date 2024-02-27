@@ -1,5 +1,6 @@
 ﻿using AndEmili.Data;
 using AndEmili.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
