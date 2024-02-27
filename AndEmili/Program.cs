@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<AndEmiliContext>(options => options.UseMySQL("server=mysql;port=3306;userid=root;password=password;database=AndEmiliDB;"));
+builder.Services.AddDbContext<AndEmiliContext>();
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

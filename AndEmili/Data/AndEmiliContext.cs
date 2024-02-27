@@ -7,7 +7,7 @@ namespace AndEmili.Data
     {
         private readonly IConfiguration configuration;
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Card> Cards { get; set; }
 
         public AndEmiliContext(DbContextOptions<AndEmiliContext> dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
