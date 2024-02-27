@@ -4,7 +4,18 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularOrigins",
+    builder =>
+    {
+        builder.WithOrigins(
+                            "http://localhost:4200"
+                            )
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+    });
+});
 builder.Services.AddDbContext<AndEmiliContext>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
@@ -20,6 +31,8 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 //}
+
+app.UseCors("AllowAngularOrigins");
 
 app.UseHttpsRedirection();
 
